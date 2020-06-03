@@ -1,16 +1,16 @@
 import argparse
 import copy
 from itertools import chain
+import numpy as np
 import random
 
-from agents import Buyer, Seller
+from Agents import Buyer, Seller
 
 
 def simulation(config):
     """ Runs the simulation using the configurations given """
 
-    buyers = [Buyer(config.init) for _ in range(config.nbuyers)]
-    sellers = [Seller(config.init) for _ in range(config.nsellers)]
+    buyers, sellers = initialize_agents(config)
 
     for day in range(config.ndays):
         # Make all trades during day
@@ -25,6 +25,27 @@ def simulation(config):
         agent_interactions(sellers, n_interactions=2)
         for agent in chain(buyers, sellers):
             agent.update_worlds()
+
+
+def initialize_agents(config):
+
+    buyer_prices = [np.arange(config.lowprice, get_random_high_buyer(config.lowprice, config.highprice), .50)
+                    for _ in range(config.nbuyers)]
+    seller_prices = [np.arange(get_random_low_seller(config.lowprice, config.highprice), config.highprice, .50)
+                     for _ in range(config.nsellers)]
+    buyers = [Buyer(prices, config) for prices in buyer_prices]
+    sellers = [Seller(prices, config) for prices in seller_prices]
+    return buyers, sellers
+
+
+def get_random_high_buyer(lowprice, highprice):
+    diff = highprice - lowprice
+    return round(random.uniform(lowprice, lowprice + .75 * diff) * 2) / 2.
+
+
+def get_random_low_seller(lowprice, highprice):
+    diff = highprice - lowprice
+    return round(random.uniform(lowprice + .25 * diff, highprice) * 2) / 2.
 
 
 def agent_interactions(agents, n_interactions=10):
@@ -63,5 +84,13 @@ if __name__=="__main__":
                         default='default',
                         choices=['default'],
                         help='Price belief initialization method')
+    parser.add_argument('-minp', '--lowprice',
+                        type=float,
+                        default=1.0,
+                        help='Lowest price possible in the complete simulation')
+    parser.add_argument('-maxp', '--highprice',
+                        type=float,
+                        default=10.0,
+                        help='Highest price possible in the complete simulation')
     config = parser.parse_args()
     simulation(config)
