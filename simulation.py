@@ -9,7 +9,14 @@ from Agents import Buyer, Seller
 
 
 def simulation(config):
-    """ Runs the simulation using the configurations given """
+    """ Runs the simulation using the configurations given
+    Config should be a namespace containing the following fields:
+        config.ndays
+        config.nbuyers
+        config.nsellers
+        config.lowprice
+        config.highprice
+    """
 
     buyers, sellers = initialize_agents(config)
 
@@ -55,7 +62,8 @@ def simulation(config):
     plt.xlabel("Days")
     plt.ylabel("Price")
     plt.legend()
-    plt.show()
+    plt.savefig("simulation_fig.jpg")
+    return av_transaction_prices, av_seller_prices, av_buyer_prices
 
 
 
