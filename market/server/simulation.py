@@ -2,7 +2,9 @@ import argparse
 import copy
 from itertools import chain
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
+from matplotlib import pyplot as plt
 import random
 import pdb
 from server.Agents import Buyer, Seller
