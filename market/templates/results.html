@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block body-left %}
+    <img src="../static/plots/simulation_fig.png" class="rounded mx-auto d-block">
+{% endblock %}
+
+{% block body-right %}
+  <div class="centered">
+  	<div class="results">
+        <p> Average Transaction Prices: </p>
+        <ul>
+          {% for price in avg_transaction %}
+            <li>{{ price }}</li>
+          {% endfor %}
+        </ul>
+        <p> Average Buyer Prices: </p>
+        <ul>
+          {% for price in avg_buyer %}
+            <li>{{ price }}</li>
+          {% endfor %}
+        </ul>
+        <p> Average Seller Prices: </p>
+        <ul>
+          {% for price in avg_seller %}
+            <li>{{ price }}</li>
+          {% endfor %}
+        </ul>
+        <a class="btn btn-warning" href="/home">Reset</a>
+        <!-- <input type="submit" class="btn btn-warning" value="Reset" formaction="{% url 'home' %}"> -->
+    </div>
+    <br>
+    <div class="messages">
+        {% for msg in messages %}
+          <div class="alert alert-{{msg.level_tag}}" role="alert">
+            {{msg.message}}
+          </div>
+        {% endfor %}
+    </div>
+  </div>
+{% endblock %}

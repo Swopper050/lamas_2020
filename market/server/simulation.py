@@ -4,8 +4,8 @@ from itertools import chain
 import numpy as np
 import matplotlib.pyplot as plt
 import random
-from server import Agents
-#from server.Agents import Buyer, Seller
+import pdb
+from server.Agents import Buyer, Seller
 
 
 def simulation(config):
@@ -17,7 +17,6 @@ def simulation(config):
         config.lowprice
         config.highprice
     """
-
     buyers, sellers = initialize_agents(config)
 
     av_buyer_prices = []
@@ -62,7 +61,8 @@ def simulation(config):
     plt.xlabel("Days")
     plt.ylabel("Price")
     plt.legend()
-    plt.savefig("simulation_fig.jpg")
+    plt.savefig(".\static\plots\simulation_fig.png")
+    plt.clf()
     return av_transaction_prices, av_seller_prices, av_buyer_prices
 
 

@@ -10,6 +10,10 @@ import pdb
 from .forms import InputForms
 from django.template import Context, Template
 from django.contrib import messages
+import types
+import os
+from server import Agents, simulation
+
 def home(request):
 	context = {
 	"form":InputForms
@@ -19,10 +23,13 @@ def home(request):
 def load_inputs(request):
 	#pdb.set_trace()
 	form = InputForms(request.POST)
-	#pdb.set_trace()
 	if form.is_valid():
+		ui_input = types.SimpleNamespace(ndays=form.cleaned_data['number_of_days'],nbuyers=form.cleaned_data['number_of_buyers'],nsellers=form.cleaned_data['number_of_sellers'],lowprice=form.cleaned_data['min_price'],highprice=form.cleaned_data['max_price'])
 		msg_str = "Starting Simulation for " + str(form.cleaned_data['number_of_days']) + " days with " + str(form.cleaned_data['number_of_buyers']) + " buyers and " + str(form.cleaned_data['number_of_sellers']) + " sellers"
 		messages.add_message(request, messages.SUCCESS, msg_str)
-
-		#return render(request, 'index.html', {'days':form.cleaned_data['number_of_days'], 'buyers':form.cleaned_data['number_of_buyers'], 'sellers': form.cleaned_data['number_of_sellers']})
-	return redirect('home')
+		if os.path.exists("./static/plots/simulation_fig.png"):
+			os.remove("./static/plots/simulation_fig.png")
+		av_transaction_prices, av_seller_prices, av_buyer_prices = simulation.simulation(ui_input)
+		#pdb.set_trace()
+	return render(request, 'results.html', {"avg_transaction":av_transaction_prices,"avg_seller":av_seller_prices,"avg_buyer":av_buyer_prices})
+	#return redirect('home')
