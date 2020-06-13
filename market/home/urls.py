@@ -9,6 +9,7 @@ from .views import home, load_inputs
 
 
 urlpatterns = [
+    path('', home, name='home'),
     path('home', home, name = 'home'),
-    path('start_sim',load_inputs, name = 'start_sim')
+    path('start_sim', load_inputs, name = 'start_sim')
 ]
