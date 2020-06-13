@@ -25,8 +25,6 @@ def load_inputs(request):
 	form = InputForms(request.POST)
 	if form.is_valid():
 		ui_input = types.SimpleNamespace(ndays=form.cleaned_data['number_of_days'],nbuyers=form.cleaned_data['number_of_buyers'],nsellers=form.cleaned_data['number_of_sellers'],lowprice=form.cleaned_data['min_price'],highprice=form.cleaned_data['max_price'])
-		msg_str = "Starting Simulation for " + str(form.cleaned_data['number_of_days']) + " days with " + str(form.cleaned_data['number_of_buyers']) + " buyers and " + str(form.cleaned_data['number_of_sellers']) + " sellers"
-		messages.add_message(request, messages.SUCCESS, msg_str)
 		if os.path.exists("./static/plots/simulation_fig.png"):
 			os.remove("./static/plots/simulation_fig.png")
 		av_transaction_prices, av_seller_prices, av_buyer_prices = simulation.simulation(ui_input)

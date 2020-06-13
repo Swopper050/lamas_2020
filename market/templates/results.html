@@ -7,34 +7,44 @@
 {% block body-right %}
   <div class="centered">
   	<div class="results">
-        <p> Average Transaction Prices: </p>
-        <ul>
+        <table id="t01">
+          <tr>
+            <th>Average Transaction Prices</th>
+          </tr>
           {% for price in avg_transaction %}
-            <li>{{ price }}</li>
+            <tr>
+              <td>{{ price }}</td>
+            </tr>
           {% endfor %}
-        </ul>
-        <p> Average Buyer Prices: </p>
-        <ul>
+        </table>
+        <br>
+
+        <table id="t01">
+          <tr>
+            <th>Average Buyer Prices</th>
+          </tr>
           {% for price in avg_buyer %}
-            <li>{{ price }}</li>
+            <tr>
+              <td>{{ price }}</td>
+            </tr>
           {% endfor %}
-        </ul>
-        <p> Average Seller Prices: </p>
-        <ul>
+        </table>
+        <br>
+
+        <table id="t01">
+          <tr>
+            <th>Average Seller Prices</th>
+          </tr>
           {% for price in avg_seller %}
-            <li>{{ price }}</li>
+            <tr>
+              <td>{{ price }}</td>
+            </tr>
           {% endfor %}
-        </ul>
-        <a class="btn btn-warning" href="/home">Reset</a>
+        </table>
+        <br>
         <!-- <input type="submit" class="btn btn-warning" value="Reset" formaction="{% url 'home' %}"> -->
     </div>
     <br>
-    <div class="messages">
-        {% for msg in messages %}
-          <div class="alert alert-{{msg.level_tag}}" role="alert">
-            {{msg.message}}
-          </div>
-        {% endfor %}
-    </div>
+    <a class="btn btn-warning" href="/home">Reset</a>
   </div>
 {% endblock %}

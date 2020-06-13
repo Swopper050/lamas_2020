@@ -44,4 +44,34 @@ body {
             padding: 10px 16px;
             font-size: 16px;
             text-align: center;
-        }
+}
+.intro{
+  padding: 35px;
+  text-align: justify;
+}
+.results{
+  width:100%;
+}
+table {
+  margin: 0 auto;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 1px;
+  text-align: center;
+}
+table#t01 tr:nth-child(even) {
+  background-color: #fff;
+  color: black;
+}
+table#t01 tr:nth-child(odd) {
+ background-color: #b4b4b4;
+ color: black;
+}
+table#t01 th {
+  background-color: black;
+  color: white;
+}

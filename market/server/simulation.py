@@ -4,7 +4,7 @@ from itertools import chain
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
-matplotlib.use('agg')
+matplotlib.use('Agg')
 import os
 from os.path import dirname, abspath
 import random
