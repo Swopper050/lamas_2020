@@ -2,4 +2,4 @@
 *env*
 *__pycache__*
 *.DS_Store*
-market/static/plots/*
+market/static/plots/simulation_fig.png
