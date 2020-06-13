@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+</head>
+<body>
+<div class="split left">
+  {% if show_plot == 1 %}
+      <img src="../static/plots/simulation_fig.png" class="rounded mx-auto d-block">
+  {% endif %}
+</div>
+<div class="split right">
+  <div class="top-bar">
+    <p></p>
+  </div>
+  <div class="centered">
+  	<div class="Form">
+      <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" class="btn btn-warning" value="Start Simulation" formaction="{% url 'start_sim' %}">
+      </form>
+    </div>
+    <br>
+    <div class="messages">
+        {% for msg in messages %}
+          <div class="alert alert-{{msg.level_tag}}" role="alert">
+            {{msg.message}}
+          </div>
+        {% endfor %}
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

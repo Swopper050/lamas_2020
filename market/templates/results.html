@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block body-left %}
+    <img src="../static/plots/simulation_fig.png" class="rounded mx-auto d-block">
+{% endblock %}
+
+{% block body-right %}
+  <div class="centered">
+  	<div class="results">
+        <table id="t01">
+          <tr>
+            <th>Average Transaction Prices</th>
+          </tr>
+          {% for price in avg_transaction %}
+            <tr>
+              <td>{{ price }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+        <br>
+
+        <table id="t01">
+          <tr>
+            <th>Average Buyer Prices</th>
+          </tr>
+          {% for price in avg_buyer %}
+            <tr>
+              <td>{{ price }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+        <br>
+
+        <table id="t01">
+          <tr>
+            <th>Average Seller Prices</th>
+          </tr>
+          {% for price in avg_seller %}
+            <tr>
+              <td>{{ price }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+        <br>
+        <!-- <input type="submit" class="btn btn-warning" value="Reset" formaction="{% url 'home' %}"> -->
+    </div>
+    <br>
+    <a class="btn btn-warning" href="/home">Reset</a>
+  </div>
+{% endblock %}

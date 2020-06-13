@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block body-left %}
+<p class="intro">In this study a market is simulated using epistemic logic. It takes an approach using two different types of agents: buyers and sellers. The goal of this study is to look at the behaviour of markets when a different number of buyers and sellers is used. Buyers interact with sellers every day. Every agent has 'knowledge' or 'belief' about the possible prices. More informally, buyers have a maximum price they are willing to pay and sellers have a minimum price for which they are willing to sell a product. When buyers and sellers negotiate, the transaction price will be used as knowledge in order to investigate market behaviour. Furthermore buyers will interact with other buyers in order to exchange their knowledge about the current price. Sellers will do this as well. The simulation showed that logical behaviour arises using the simulation, i.e. when there are more buyers than sellers, the price ends up higher compared to a situation in which there are more sellers than buyers. Furthermore, allowing more interactions per day between buyers and between sellers showed that knowledge spreads around more quickly, leading the simulation to converge in fewer days. </p>
+{% endblock %}
+
+{% block body-right %}
+  <div class="top-bar">
+  </div>
+  <div class="centered">
+  	<div class="Form">
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-warning" value="Start Simulation" formaction="{% url 'start_sim' %}">
+      </form>
+    </div>
+    <br>
+    <div class="messages">
+        {% for msg in messages %}
+          <div class="alert alert-{{msg.level_tag}}" role="alert">
+            {{msg.message}}
+          </div>
+        {% endfor %}
+    </div>
+  </div>
+{% endblock %}

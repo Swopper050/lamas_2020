@@ -3,9 +3,12 @@ import copy
 from itertools import chain
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
+import os
+from os.path import dirname, abspath
 import random
-
-from Agents import Buyer, Seller
+from server.Agents import Buyer, Seller
 
 
 def simulation(config):
@@ -62,7 +65,13 @@ def simulation(config):
     plt.xlabel("Days")
     plt.ylabel("Price")
     plt.legend()
-    plt.savefig("simulation_fig.jpg")
+    base_dir = dirname(dirname(abspath(__file__)))
+    save_dir = os.path.join(base_dir, 'static/plots/simulation_fig.png')
+    print(base_dir)
+    print(save_dir)
+    plt.savefig(save_dir)
+    plt.clf()
+    plt.close()
     return av_transaction_prices, av_seller_prices, av_buyer_prices
 
 
