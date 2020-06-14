@@ -17,6 +17,7 @@ class Agent:
         ## 2 = more than (for sellers)) and the second value the price associated, both of them associated to the last trade.
         self.can_negotiate = True ## If they can trade or not.
         self.last_deal_price = -1 ## The information about the last transaction the agent made.
+        self.market_situation = config.market_situation
         self.min_price = config.lowprice
         self.max_price = config.highprice
         self.price_interval = 0.50
@@ -80,7 +81,7 @@ class Buyer(Agent):
             return choice(available_sellers)
         return None
 
-    def negotiation_with_seller(self, seller):
+    def interaction_with_seller(self, seller, market_sit):
         """
         Negotiate with the given seller. This consists of bargaining about the price and
         eventually come to a transaction if a price is reached which is agreed upon or

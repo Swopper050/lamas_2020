@@ -1,10 +1,14 @@
 from django import forms
 
-int_choices = [tuple([x,x]) for x in range(1,10)]
-days_choices = [tuple([x,x]) for x in range(1,30)]
+MARKET_SITUATIONS = [
+    ("grocery_store", "Grocery Store"),
+    ("negotation", "Negotiation"),
+]
+
 class InputForms(forms.Form):
-    number_of_days = forms.IntegerField(label="Days for Simulation")
-    number_of_buyers = forms.IntegerField(label="Number of Buyers")
-    number_of_sellers = forms.IntegerField(label="Number of Sellers")
-    min_price = forms.IntegerField(label="Minimum Price")
-    max_price = forms.IntegerField(label="Maximum Price")
+    market_situation = forms.ChoiceField(label="Market Situation", choices=MARKET_SITUATIONS)
+    number_of_days = forms.IntegerField(label="Days for Simulation", initial=10)
+    number_of_buyers = forms.IntegerField(label="Number of Buyers", initial=5)
+    number_of_sellers = forms.IntegerField(label="Number of Sellers", initial=5)
+    min_price = forms.IntegerField(label="Minimum Price", initial=1)
+    max_price = forms.IntegerField(label="Maximum Price", initial=10)

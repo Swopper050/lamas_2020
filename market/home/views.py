@@ -24,15 +24,17 @@ def load_inputs(request):
 
 	form = InputForms(request.POST)
 	if form.is_valid():
-		ui_input = types.SimpleNamespace(
+		sim_config = types.SimpleNamespace(
+			market_situation=form.cleaned_data['market_situation'],
 			ndays=form.cleaned_data['number_of_days'],
 			nbuyers=form.cleaned_data['number_of_buyers'],
 			nsellers=form.cleaned_data['number_of_sellers'],
 			lowprice=form.cleaned_data['min_price'],
 			highprice=form.cleaned_data['max_price']
 		)
+
 		if os.path.exists("./static/plots/simulation_fig.png"):
 			os.remove("./static/plots/simulation_fig.png")
-		av_transaction_prices, av_seller_prices, av_buyer_prices = simulation.simulation(ui_input)
+		av_transaction_prices, av_seller_prices, av_buyer_prices = simulation.simulation(sim_config)
 
 	return render(request, 'results.html', {"avg_transaction":av_transaction_prices,"avg_seller":av_seller_prices,"avg_buyer":av_buyer_prices})

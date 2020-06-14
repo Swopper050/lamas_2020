@@ -38,7 +38,7 @@ def simulation(config):
             seller = buyer.pick_seller(available_sellers)
             if seller is not None:
                 # Negotiate with the selected seller and remember the transaction price
-                transaction_price = buyer.negotiation_with_seller(seller)
+                transaction_price = buyer.interaction_with_seller(seller)
                 if transaction_price != -1:  # There was a deal
                     day_transaction_prices.append(transaction_price)
                     available_sellers.remove(seller)
@@ -54,7 +54,11 @@ def simulation(config):
         agent_interactions(sellers, n_interactions=20)
 
         # Store averages during the day for plotting
-        av_transaction_prices.append(np.mean(day_transaction_prices))
+        av_day_price = np.mean(day_transaction_prices)
+        if np.isfinite(av_day_price):
+            av_transaction_prices.append(av_day_price)
+        else:
+            av_transaction_prices.append(av_transaction_prices[-1])
         av_seller_prices.append(np.mean([min(seller.possible_prices) for seller in sellers]))
         av_buyer_prices.append(np.mean([max(buyer.possible_prices) for buyer in buyers]))
 
