@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block body-left %}
+<h1>Problem description</h1>
+<h2>Possible prices</h2>
+<p>In order to convert the market situation to an epistemic logic problem the price will not be a continuous variable, but the prices will be made discrete and they will resemble all the possible worlds. There will be a minimum price and a maximum price and all prices in between are considered in the model. For example if the minimum price is 1 euro and the maximum price is 3 euro's then all possible worlds can be the worlds in which the price is either 1, 2 or 3. Formally speaking this means that there will be three possible atoms, <i>p</i> would be true iff the price is 1, <i>q</i> would be true iff the price is 2, etc. In a world, only one atom can be true at a time, due to the nature of the problem (the price can not be both 2 and 1). The relations between worlds for an agent are fully connected in the sense that for an agent all worlds it considers possible are accessible from all other worlds it considers possible (they are indistinguishable for the agent).</p>
+
+<h2>Agents</h2>
+<p>The agents in this world have beliefs about what the price can be. In this problem only buyers and sellers are considered. Buyers typically have a maximum price they are willing to pay for a product. Sellers typically have a minimum price for which they are willing to sell their product. In logical terms this means that buyers consider worlds possible which have a price less than or equal to some price and sellers consider all worlds possible which have a price greater than or equal to some price.</p>
+
+<h2>Knowledge</h2>
+<p>The knowledge consists of transactions. Performing transactions is not done in a logical way, but rather in an algorithmic way. However, it can be logically determined if a buyer and a seller can have a transaction. They can only have a transaction when both share a world they consider possible (hence they agree on some price). When this is the case for multiple worlds, a simple heuristic such as using the middle price of all prices considered possible by both can be used do determine the price for a transaction. When agents make a transaction, this is the part where knowledge gets exchanged, as it includes information about the price of the product, and both the sellers and the buyers together determine the price that arises from the simulation. Hence if a deal is made, this means that the prices an agent considers possible is currently correct. If no transaction is made, a buyer should consider higher prices and a seller should consider lower prices possible. Knowledge exchange between buyers and between sellers is added to let them share knowledge. For example if a buyer makes a transaction for a price which is lower than another buyer's maximum price and the first buyer shares this knowledge, the second buyer can eliminate some of the higher prices it considers possible. Vice versa for sellers if a seller sells a product for a higher price and shares this with another seller, it can eliminate some lower prices. Because of this buyers push their prices down by sharing knowledge and sellers push their prices up by sharing knowledge.</p>
+
+<h2>Simulation</h2>
+<p>The simulation runs for a certain number of days. During a day, the following events take place:</p>
+<ol>
+    <li>A buyer picks a seller to negotiate with (all buyers do this).</li>
+    <li>The negotiation is either successful or not.</li>
+    <li>All agents update their knowledge and adjust their prices if no transactions were made (buyers up their maximum price belief, sellers decrease their minimum price belief).</li>
+    <li>Buyers interact with other buyers randomly and exchange knowledge about their price beliefs.</li>
+    <li>Sellers interact with other sellers randomly and exchange knowledge about their price beliefs.</li>
+</ol>
+<p>This is repeated for a specified number of days.</p>
+{% endblock %}
+
+
+
+{% block body-right %}
+
+{% endblock %}

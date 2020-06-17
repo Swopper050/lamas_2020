@@ -14,11 +14,25 @@ import types
 import os
 from server import Agents, simulation
 
+
 def home(request):
 	context = {
-	"form":InputForms
+		"form": InputForms,
 	}
-	return render(request, 'index.html',context)
+	return render(request, 'index.html', context)
+
+
+def introduction(request):
+	return render(request, 'introduction.html')
+
+
+def problem_description(request):
+	return render(request, 'problem_description.html')
+
+
+def model(request):
+	return render(request, 'model.html')
+
 
 def load_inputs(request):
 

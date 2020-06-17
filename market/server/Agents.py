@@ -81,7 +81,7 @@ class Buyer(Agent):
             return choice(available_sellers)
         return None
 
-    def interaction_with_seller(self, seller, market_sit):
+    def interaction_with_seller(self, seller):
         """
         Negotiate with the given seller. This consists of bargaining about the price and
         eventually come to a transaction if a price is reached which is agreed upon or
