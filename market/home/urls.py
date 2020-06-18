@@ -5,7 +5,7 @@ Created on Mon Jun  1 16:59:04 2020
 @author: 91782
 """
 from django.urls import path
-from .views import home, load_inputs, introduction, problem_description, model
+from .views import home, load_inputs, introduction, problem_description, model, experiments
 
 
 urlpatterns = [
@@ -15,4 +15,5 @@ urlpatterns = [
     path('introduction', introduction, name='introduction'),
     path('problem_description', problem_description, name='problem_description'),
     path('model', model, name='model'),
+    path('experiments', experiments, name='experiments'),
 ]

@@ -34,6 +34,10 @@ def model(request):
 	return render(request, 'model.html')
 
 
+def experiments(request):
+	return render(request, 'experiments.html')
+
+
 def load_inputs(request):
 
 	form = InputForms(request.POST)
