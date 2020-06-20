@@ -14,6 +14,7 @@ from server.Agents import Buyer, Seller
 def simulation(config):
     """ Runs the simulation using the configurations given
     Config should be a namespace containing the following fields:
+        config.market_situation
         config.ndays
         config.nbuyers
         config.nsellers
@@ -29,18 +30,25 @@ def simulation(config):
 
     for day in range(config.ndays):
 
+        for agent in chain(buyers, sellers):
+            agent.last_deal = ['Empty', -1]
+
         # Make all trades during day
         random.shuffle(buyers)  # Let buyers pick sellers in random order
         available_sellers = copy.copy(sellers)
         day_transaction_prices = []
+
         for buyer in buyers:
             # Let a buyer pick a seller, if no more sellers are available, None is returned
             seller = buyer.pick_seller(available_sellers)
+
             if seller is not None:
                 # Negotiate with the selected seller and remember the transaction price
-                transaction_price = buyer.interaction_with_seller(seller)
-                if transaction_price != -1:  # There was a deal
-                    day_transaction_prices.append(transaction_price)
+                debug = True if day > 200 else False
+                debug=False
+                transaction = buyer.interaction_with_seller(seller, debug=debug)
+                if transaction[1] != -1:  # There was a deal
+                    day_transaction_prices.append(transaction[1])
                     available_sellers.remove(seller)
 
         # Update prices --> If an agent had no transaction, add more prices
@@ -50,15 +58,17 @@ def simulation(config):
             agent.update_share_information()
 
         # Let buyers interact with buyers and sellers with sellers (pairs are selected randomly)
-        agent_interactions(buyers, n_interactions=20)
-        agent_interactions(sellers, n_interactions=20)
-
+        agent_interactions(buyers, n_interactions=10)
+        #agent_interactions(sellers, n_interactions=2)
         # Store averages during the day for plotting
         av_day_price = np.mean(day_transaction_prices)
-        if np.isfinite(av_day_price):
+        if np.isfinite(av_day_price) and not av_day_price == -1:
             av_transaction_prices.append(av_day_price)
         else:
-            av_transaction_prices.append(av_transaction_prices[-1])
+            if np.all([av_price == np.nan for av_price in av_transaction_prices]):
+                av_transaction_prices.append(np.nan)
+            else:
+                av_transaction_prices.append(av_transaction_prices[-1])
         av_seller_prices.append(np.mean([min(seller.possible_prices) for seller in sellers]))
         av_buyer_prices.append(np.mean([max(buyer.possible_prices) for buyer in buyers]))
 
@@ -74,10 +84,10 @@ def simulation(config):
     print(base_dir)
     print(save_dir)
     plt.savefig(save_dir)
+    plt.show()
     plt.clf()
     plt.close()
     return av_transaction_prices, av_seller_prices, av_buyer_prices
-
 
 
 def initialize_agents(config):
@@ -89,8 +99,9 @@ def initialize_agents(config):
 
     buyer_prices = [np.arange(config.lowprice, get_random_high_buyer(config.lowprice, config.highprice), .50)
                     for _ in range(config.nbuyers)]
-    seller_prices = [np.arange(get_random_low_seller(config.lowprice, config.highprice), config.highprice, .50)
+    seller_prices = [np.arange(get_random_low_seller(config.lowprice, config.highprice), config.highprice + .5, .50)
                      for _ in range(config.nsellers)]
+
     buyers = [Buyer(prices, config) for prices in buyer_prices]
     sellers = [Seller(prices, config) for prices in seller_prices]
     return buyers, sellers
@@ -125,31 +136,33 @@ def agent_interactions(agents, n_interactions=10):
         #print(f"{agent1.type} {agent1.name} exchanges knowledge with {agent2.type} {agent2.name}")
         #print(f"{agent1.name} shares {agent1.sharing_knowledge}")
         #print(f"{agent2.name} shares {agent2.sharing_knowledge}")
+        #print(f"{agent1.name} first has possible worlds {agent1.possible_prices}")
         agent1.acquire_knowledge(agent2.sharing_knowledge)
         agent2.acquire_knowledge(agent1.sharing_knowledge)
+        #print(f"{agent1.name} now has possible worlds {agent1.possible_prices}")
+        #print(f"{agent1.name} with last_information {agent1.last_information}")
 
 
 if __name__=="__main__":
     parser = argparse.ArgumentParser(
         description="Run market simulation with epistemic logic."
     )
+    parser.add_argument('-m', '--market_situation',
+                        type=str,
+                        default='negotiation',
+                        help='Type of market situation to use in the simulation')
     parser.add_argument('-n', '--ndays',
                         type=int,
                         default=10,
                         help='Number of days to run the simulation')
     parser.add_argument('-s', '--nsellers',
                         type=int,
-                        default=1,
+                        default=5,
                         help='Number of sellers that participate in the simulation')
     parser.add_argument('-b', '--nbuyers',
                         type=int,
-                        default=1,
+                        default=5,
                         help='Number of buyers that participate in the simulation')
-    parser.add_argument('-i', '--init',
-                        type=str,
-                        default='default',
-                        choices=['default'],
-                        help='Price belief initialization method')
     parser.add_argument('-minp', '--lowprice',
                         type=float,
                         default=1.0,
