@@ -1,8 +1,8 @@
 from django import forms
 
 MARKET_SITUATIONS = [
-    ("grocery_store", "Grocery Store"),
     ("negotiation", "Negotiation"),
+    ("grocery_store", "Grocery Store"),
 ]
 
 class InputForms(forms.Form):
