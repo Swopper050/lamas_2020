@@ -27,6 +27,7 @@ def simulation(config):
     av_buyer_prices = []
     av_seller_prices = []
     av_transaction_prices = []
+    std_transaction_prices = []
 
     for day in range(config.ndays):
 
@@ -36,7 +37,7 @@ def simulation(config):
         # Make all trades during day
         random.shuffle(buyers)  # Let buyers pick sellers in random order
         available_sellers = copy.copy(sellers)
-        day_transaction_prices = []
+        day_transactions = []
 
         for buyer in buyers:
             # Let a buyer pick a seller, if no more sellers are available, None is returned
@@ -48,7 +49,7 @@ def simulation(config):
                 debug=False
                 transaction = buyer.interaction_with_seller(seller, debug=debug)
                 if transaction[1] != -1:  # There was a deal
-                    day_transaction_prices.append(transaction[1])
+                    day_transactions.append(transaction)
                     available_sellers.remove(seller)
 
         # Update prices --> If an agent had no transaction, add more prices
@@ -61,24 +62,39 @@ def simulation(config):
         agent_interactions(buyers, n_interactions=10)
         #agent_interactions(sellers, n_interactions=2)
         # Store averages during the day for plotting
-        av_day_price = np.mean(day_transaction_prices)
+        av_day_price = np.mean([transaction[1] for transaction in day_transactions])
+        std_day_price = np.std([transaction[1] for transaction in day_transactions])
         if np.isfinite(av_day_price) and not av_day_price == -1:
             av_transaction_prices.append(av_day_price)
+            std_transaction_prices.append(std_day_price)
         else:
             if np.all([av_price == np.nan for av_price in av_transaction_prices]):
                 av_transaction_prices.append(np.nan)
+                std_transaction_prices.append(np.nan)
             else:
                 av_transaction_prices.append(av_transaction_prices[-1])
+                std_transaction_prices.append(std_transaction_prices[-1])
         av_seller_prices.append(np.mean([min(seller.possible_prices) for seller in sellers]))
         av_buyer_prices.append(np.mean([max(buyer.possible_prices) for buyer in buyers]))
 
     # Plot the simulation
-    plt.plot(av_seller_prices, label="Average seller price")
-    plt.plot(av_buyer_prices, label="Average buyer price")
-    plt.plot(av_transaction_prices, label="Average transaction price")
-    plt.xlabel("Days")
-    plt.ylabel("Price")
-    plt.legend()
+    fig, ax = plt.subplots()
+    ax.plot(av_seller_prices, label="Average seller price")
+    ax.plot(av_buyer_prices, label="Average buyer price")
+    #plt.plot(av_transaction_prices, label="Average transaction price")
+
+    ax.errorbar(
+        list(range(len(av_transaction_prices))),
+        av_transaction_prices,
+        std_transaction_prices,
+        color='green',
+        label='Average transaction price',
+        fmt='o',
+    )
+
+    ax.set_xlabel("Days")
+    ax.set_ylabel("Price")
+    ax.legend()
     base_dir = dirname(dirname(abspath(__file__)))
     save_dir = os.path.join(base_dir, 'static/plots/simulation_fig.png')
     print(base_dir)
