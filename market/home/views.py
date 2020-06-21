@@ -48,7 +48,9 @@ def load_inputs(request):
 			nbuyers=form.cleaned_data['number_of_buyers'],
 			nsellers=form.cleaned_data['number_of_sellers'],
 			lowprice=form.cleaned_data['min_price'],
-			highprice=form.cleaned_data['max_price']
+			highprice=form.cleaned_data['max_price'],
+			nbuyer_interactions=form.cleaned_data['n_buyer_interactions'],
+			nseller_interactions=form.cleaned_data['n_seller_interactions'],
 		)
 
 		if os.path.exists("./static/plots/simulation_fig.png"):

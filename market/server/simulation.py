@@ -26,6 +26,8 @@ def simulation(config):
         config.nsellers
         config.lowprice
         config.highprice
+        config.nbuyerinteractions
+        config.nsellerinteractions
     """
 
     buyers, sellers = initialize_agents(config)
@@ -65,8 +67,8 @@ def simulation(config):
             agent.update_share_information()
 
         # Let buyers interact with buyers and sellers with sellers (pairs are selected randomly)
-        agent_interactions(buyers, n_interactions=10)
-        #agent_interactions(sellers, n_interactions=2)
+        agent_interactions(buyers, n_interactions=config.nbuyer_interactions)
+        agent_interactions(sellers, n_interactions=config.nseller_interactions)
         # Store averages during the day for plotting
         av_day_price = np.mean([transaction[1] for transaction in day_transactions])
         std_day_price = np.std([transaction[1] for transaction in day_transactions])
