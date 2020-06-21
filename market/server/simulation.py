@@ -11,6 +11,12 @@ import random
 from server.Agents import Buyer, Seller
 
 
+def enumerate2(xs, start=0, step=1):
+    for x in xs:
+        yield (start, x)
+        start += step
+
+
 def simulation(config):
     """ Runs the simulation using the configurations given
     Config should be a namespace containing the following fields:
@@ -64,16 +70,14 @@ def simulation(config):
         # Store averages during the day for plotting
         av_day_price = np.mean([transaction[1] for transaction in day_transactions])
         std_day_price = np.std([transaction[1] for transaction in day_transactions])
+        std_transaction_prices.append(std_day_price)
         if np.isfinite(av_day_price) and not av_day_price == -1:
             av_transaction_prices.append(av_day_price)
-            std_transaction_prices.append(std_day_price)
         else:
             if np.all([av_price == np.nan for av_price in av_transaction_prices]):
                 av_transaction_prices.append(np.nan)
-                std_transaction_prices.append(np.nan)
             else:
                 av_transaction_prices.append(av_transaction_prices[-1])
-                std_transaction_prices.append(std_transaction_prices[-1])
         av_seller_prices.append(np.mean([min(seller.possible_prices) for seller in sellers]))
         av_buyer_prices.append(np.mean([max(buyer.possible_prices) for buyer in buyers]))
 
@@ -81,16 +85,17 @@ def simulation(config):
     fig, ax = plt.subplots()
     ax.plot(av_seller_prices, label="Average seller price")
     ax.plot(av_buyer_prices, label="Average buyer price")
-    #plt.plot(av_transaction_prices, label="Average transaction price")
+    #ax.plot(av_transaction_prices, label="Average transaction price")
 
-    ax.errorbar(
+    markers, caps, bars = ax.errorbar(
         list(range(len(av_transaction_prices))),
         av_transaction_prices,
         std_transaction_prices,
         color='green',
         label='Average transaction price',
-        fmt='o',
     )
+
+    [bar.set_alpha(.05) for bar in bars]
 
     ax.set_xlabel("Days")
     ax.set_ylabel("Price")
@@ -100,7 +105,7 @@ def simulation(config):
     print(base_dir)
     print(save_dir)
     plt.savefig(save_dir)
-    plt.show()
+    #plt.show()
     plt.clf()
     plt.close()
     return av_transaction_prices, av_seller_prices, av_buyer_prices

@@ -2,7 +2,81 @@
 
 {% block body-left %}
 <h1>Experiments</h1>
-<p>Here we put our experimental findings when ready.</p>
+<p>
+    Using the simulation several situations will be studied and compared below.
+    In all experiments, a minimum price of 1 euro's and a maximum price of 20 euros is used.
+    Furthermore, 2000 days will be simulated every time.<br>
+
+    <h1> Negotiation </h1>
+
+    When negotiating, agents use knowledge they have gathered by exchanging knowledge with each
+    other, next to their own knowledge and beliefs to negotiate with each other and to get a price
+    that maximizes the surplus, which is the advantage for both the seller as well as the buyer.
+    A deal is made whenever there is an overlap in the prices the seller considers possible and
+    the prices the buyer considers possible. Furthermore, as buyers interact with each other, it might
+    be possible that a buyer knows about the last transaction the seller currently traded with, and what
+    the price of that transaction was. When the buyer knows the seller sold a product for 4 euros previously,
+    it will not accept a price of 5 euros for a deal.<br>
+    The figure below shows the convergence of the market price when the number of buyers equals the
+    number of sellers. In this simulation there are 100 sellers and 100 buyers.
+</p>
+<img src="../static/plots/neg_100_100.png" class="rounded mx-auto d-block" width="50%" alt="100 buyers">
+<p>
+    <br>
+    Two things can be observed. First the average transaction price during a day stabilizes after
+    approximately 1200 days, and after this there is almost no change in price anymore. Second, the
+    price convergences in favor of the buyers, which makes sense, as the buyers share valuable information
+    with each other, concerning where prices are cheap (which sellers sell for a lower price) and what
+    the price there actually is. The price stabilizes around 3 euros. The stabilization is also confirmed
+    by the decreasing standard deviation of the transaction price (light green).<br><br>
+
+    When increasing the number of buyers in the simulation to 110 buyers, the demand raises, while
+    the supply stays the same (the number of sellers is still 100). This leads to the expectation that
+    the price will stabilize at a higher value. When looking at the figure below, this is exactly what
+    can be observerd.
+</p>
+<img src="../static/plots/neg_110_100.png" class="rounded mx-auto d-block" width="50%" alt="110 buyers">
+<p>
+    <br>
+    When comparing the two figures above, we see that the price now stabilizes around 5 euros, whereas
+    before this was approximately 3 euros. The stabilization is again confirmed by the standard deviation
+    decreasing and staying constant around 5 euros.<br><br>
+
+    Now the number of buyers will be increased even further to 150 buyers. The figure below shows the
+    convergence of the price for this particular situation.
+</p>
+<img src="../static/plots/neg_150_100.png" class="rounded mx-auto d-block" width="50%" alt="150 buyers">
+<p>
+    <br>
+    Here it can be seen that the sellers actually dominate the market. The price stabilizes much closer to
+    the maximum possible price (which is 20 euros). Furthermore this price is reached much faster
+    compared to the previous simulations. The price stabilizes around 15 euros.<br><br>
+
+    Finally 2 extreme situations will be considered in which the number of buyers is twice as high
+    as the number of sellers (hence 200 buyers and 100 sellers) and a situation in which the number of
+    sellers is twice as high as the number of buyers (thus 200 sellers and 100 buyers).
+</p>
+<div class="row">
+    <div class="column">
+        <img src="../static/plots/neg_300_100.png" style="width:100%" alt="300 buyers">
+    </div>
+    <div class="column">
+        <img src="../static/plots/neg_10_100.png" style="width:100%" alt="10 buyers">
+    </div>
+</div>
+<p>
+    <br>
+    As can be seen in those extreme scenarios of an unbalanced market, in the case of too much buyers
+    compared to the sellers the price almost instantly converges to the maximum prices. In the case of
+    too few buyers compared to sellers, the average price of the sellers almost instantly drops to the
+    minimum possible price.
+</p>
+
+<p>
+    <h1> Grocery Store </h1>
+    Grocery store experiments.
+</p>
+
 {% endblock %}
 
 
