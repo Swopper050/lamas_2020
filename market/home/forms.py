@@ -12,3 +12,5 @@ class InputForms(forms.Form):
     number_of_sellers = forms.IntegerField(label="Number of Sellers", initial=100)
     min_price = forms.IntegerField(label="Minimum Price", initial=1)
     max_price = forms.IntegerField(label="Maximum Price", initial=20)
+    n_buyer_interactions = forms.IntegerField(label="Buyer interactions", initial=10)
+    n_seller_interactions = forms.IntegerField(label="Seller interactions", initial=0)

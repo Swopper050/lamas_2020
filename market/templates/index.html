@@ -9,12 +9,16 @@
   </div>
   <div class="centered">
   	<div class="Form">
-      <form method="post">
+        <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <br>
         <input type="submit" class="btn btn-warning" value="Start Simulation" formaction="{% url 'start_sim' %}">
       </form>
     </div>
+    <p> Running the simulation might take some seconds! </p>
     <br>
     <div class="messages">
         {% for msg in messages %}
