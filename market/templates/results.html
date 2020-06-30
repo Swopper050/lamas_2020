@@ -1,52 +1,18 @@
 {% extends 'base.html' %}
 
 {% block body-left %}
+  <div class = "content_box left_box" style="width:50%">
     <img src="../static/plots/simulation_fig.png" class="rounded mx-auto d-block">
-{% endblock %}
-
-{% block body-right %}
-  <div class="centered">
-  	<div class="results">
-        <a class="btn btn-warning" href="/home">Reset</a>
+  </div>
+  <div class = "content_box right_box" style="width:40%">
+      <p>Average Transaction price over entire simulation: {{ avg_transaction }}</p>
+        <p>Average Buyer price over entire simulation: {{ avg_buyer }}</p>
+        <p>Average Seller price over entire simulation: {{ avg_seller }}</p>
+        <p>Final day Average Transaction price between all agents: {{ final_trans }}</p>
+        <p>Final day Average Seller price across all Sellers: {{ final_seller }}</p>
+        <p>Final day Average Buyers price across all Buyers: {{ final_buyer }}</p>
         <br>
-        <br>
-        <table id="t01">
-          <tr>
-            <th>Average Transaction Prices</th>
-          </tr>
-          {% for price in avg_transaction %}
-            <tr>
-              <td>{{ price }}</td>
-            </tr>
-          {% endfor %}
-        </table>
-        <br>
-
-        <table id="t01">
-          <tr>
-            <th>Average Buyer Prices</th>
-          </tr>
-          {% for price in avg_buyer %}
-            <tr>
-              <td>{{ price }}</td>
-            </tr>
-          {% endfor %}
-        </table>
-        <br>
-
-        <table id="t01">
-          <tr>
-            <th>Average Seller Prices</th>
-          </tr>
-          {% for price in avg_seller %}
-            <tr>
-              <td>{{ price }}</td>
-            </tr>
-          {% endfor %}
-        </table>
-        <br>
-        <!-- <input type="submit" class="btn btn-warning" value="Reset" formaction="{% url 'home' %}"> -->
-    </div>
-    <br>
+        <a class="btn btn-warning" href="/home"><h6>Run Another Simulation</h6></a>
+      </p>
   </div>
 {% endblock %}

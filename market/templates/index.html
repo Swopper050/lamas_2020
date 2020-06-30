@@ -1,31 +1,24 @@
 {% extends 'base.html' %}
 
 {% block body-left %}
-<p class="intro">In this study a market is simulated using epistemic logic. It takes an approach using two different types of agents: buyers and sellers. The goal of this study is to look at the behaviour of markets when a different number of buyers and sellers is used. Buyers interact with sellers every day. Every agent has 'knowledge' or 'belief' about the possible prices. More informally, buyers have a maximum price they are willing to pay and sellers have a minimum price for which they are willing to sell a product. When buyers and sellers negotiate, the transaction price will be used as knowledge in order to investigate market behaviour. Furthermore buyers will interact with other buyers in order to exchange their knowledge about the current price. Sellers will do this as well. The simulation showed that logical behaviour arises using the simulation, i.e. when there are more buyers than sellers, the price ends up higher compared to a situation in which there are more sellers than buyers. Furthermore, allowing more interactions per day between buyers and between sellers showed that knowledge spreads around more quickly, leading the simulation to converge in fewer days. </p>
-{% endblock %}
-
-{% block body-right %}
-  <div class="top-bar">
+<div class = "content_box left_box">
+  <h1>Abstract</h1>
+  <p>
+    Supply and Demand is a key agent in every market as it controls pricing. In a simple model of a market having with buyers and sellers, when a certain product is scarcely available, there is greater demand compared to the supply. Hence, the price of the commodity goes up and agents who sell goods have 'the upper hand'. Sellers of items are able to charge higher prices as product is scarce. However, when there is more supply compared to demand, the value of the item decreases. Buyers control the pricing as product is easily available.In this study, such a market is simulated using epistemic logic. It takes an approach using two different types of agents: buyers and sellers. The goal of this study is to look at the behaviour of markets when a different number of buyers and sellers is used. Buyers interact with sellers every day. Every agent has 'knowledge' or 'belief' about the possible prices. More informally, buyers have a maximum price they are willing to pay and sellers have a minimum price for which they are willing to sell a product. When buyers and sellers negotiate, the transaction price will be used as knowledge in order to investigate market behaviour. Furthermore buyers will interact with other buyers in order to exchange their knowledge about the current price. Sellers will do this as well. The simulation showed that logical behaviour arises using the simulation, i.e. when there are more buyers than sellers, the price ends up higher compared to a situation in which there are more sellers than buyers. Furthermore, allowing more interactions per day between buyers and between sellers showed that knowledge spreads around more quickly, leading the simulation to converge in fewer days.</p>
+</div>
+<div class="top-bar">
+</div>
+<div class="content_box right_box">
+  <div class="form">
+      <form method="post">
+      {% csrf_token %}
+      <table style="border: none;">
+          {{ form.as_table }}
+      </table>
+      <br>
+      <input type="submit" class="btn btn-warning" value="Start Simulation" formaction="{% url 'start_sim' %}">
+      <p> Running the simulation might take some seconds! </p>
+    </form>
   </div>
-  <div class="centered">
-  	<div class="Form">
-        <form method="post">
-        {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
-        <br>
-        <input type="submit" class="btn btn-warning" value="Start Simulation" formaction="{% url 'start_sim' %}">
-      </form>
-    </div>
-    <p> Running the simulation might take some seconds! </p>
-    <br>
-    <div class="messages">
-        {% for msg in messages %}
-          <div class="alert alert-{{msg.level_tag}}" role="alert">
-            {{msg.message}}
-          </div>
-        {% endfor %}
-    </div>
-  </div>
+</div>
 {% endblock %}

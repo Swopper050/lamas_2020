@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 
 {% block body-left %}
+<div class = "content_box">
 <h1>Model</h1>
 <p>
     In this section, we will discuss the main components of the project.
     All of them together will create the experimental environment where our model will produce different outputs based on the experimental set-up defined for every experiment.
 </p>
+</div>
 
-
+<div class = "content_box">
 <h2>Agents</h2>
 <p>
     The agents are the base class to define all the different actors that will play a role in our model.
@@ -20,9 +22,8 @@
     <li>Can negotiate: depending on the stock capacity or the founds, the agents will be able or not to negotiate, depending on the necessities and limitations of each of them.</li>
 </ul>
 <p>However, with the addition of some particular specialisation for the agents, we can create the final entities for the project: the buyers and the sellers.</p>
-
 <h3>Buyer</h3>
-<p class="intro">
+<p style="margin-left: 40px">
     This kind of agent is the one that has the goal to acquire new product for the lowest possible price.
     They represent the buyers that have some kind of necessity.
     The kind of information that they will be gossiping with other agents is "I bought the product for less than X euros from Agent Smith.".
@@ -35,7 +36,7 @@
 </p>
 
 <h3>Seller</h3>
-<p class="intro">
+<p style="margin-left: 40px">
     This kind of agent is the one that has the goal to sell a product for the highest possible price.
     They represent the seller that have some stock of a product.
     The kind of information that they will be gossiping with other agents is "I sold the product for more than X euros.".
@@ -43,14 +44,15 @@
     Their range of possible prices will be the one created between the maximum possible price of the product and the minimum price they are willing to sell the product.
     After gossiping, they can delimit the lower bounding, which will be decreased if they can not arrange a deal.
 </p>
+</div>
 
-
+<div class = "content_box">
 <h2>Logic Environment</h2>
 <p>
     The interaction between the pair formed by Buyer-Seller will be based on the possible worlds considered by both of them in adition to the beliefs the buyer has about the seller's prices.
-    The Buyer will accept as maximum price the minimum price between the maximum price of the possible worlds and the belief of the price the vendor is making deals.
+    The Buyer will accept as its maximum price, the minimum of either the maximum price of its possible worlds or the belief of the price the vendor is making deals with.
     This could lead to different scenarios of agreement or no deal.
-    All the agents say always the truth, so real information is going to be transfer and knowledge is going to be gained after each transaction or gossip.
+    All the agents always say the truth, so real information is going to be communicated and knowledge is going to be gained after each transaction or gossip.
     The way to determine if two Agents are able to arrange a price is checking if there is any possible world accessible by both of them.
     In the figure below, we have an example of two agents that don't have any world in common, so no deal could be reached.
 </p>
@@ -65,9 +67,10 @@
     Another important consideration of Logic in the project is the way each agent update the possible worlds.
     Based on the information received  by other Agents, the agent can modify the boundary of the prices.
     In the example shown below, the Buyer consider possible any price from 1 to 4.
-    However, after gossiping, the world of 4 is not longer an option, being reduced to the prices from 1 to 3.
+    However, after gossiping, the world of 4 is no longer an option, being reduced to the prices from 1 to 3.
 </p>
 <img src="../static/plots/using_knowledge.png" class="rounded mx-auto d-block" width="800">
+</div>
 {% endblock %}
 
 

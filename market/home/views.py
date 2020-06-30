@@ -14,16 +14,14 @@ import types
 import os
 from server import Agents, simulation
 
+def conclusion(request):
+	return render(request, 'conclusion.html')
 
 def home(request):
 	context = {
 		"form": InputForms,
 	}
 	return render(request, 'index.html', context)
-
-
-def introduction(request):
-	return render(request, 'introduction.html')
 
 
 def problem_description(request):
@@ -56,5 +54,18 @@ def load_inputs(request):
 		if os.path.exists("./static/plots/simulation_fig.png"):
 			os.remove("./static/plots/simulation_fig.png")
 		av_transaction_prices, av_seller_prices, av_buyer_prices = simulation.simulation(sim_config)
+		final_tprice = av_transaction_prices[-1]
+		final_bprice = av_buyer_prices[-1]
+		final_sprice = av_seller_prices[-1]
+		av_transaction_prices = sum(av_transaction_prices) / len(av_transaction_prices)
+		av_buyer_prices = sum(av_buyer_prices) / len(av_buyer_prices)
+		av_seller_prices = sum(av_seller_prices) / len(av_seller_prices)
 
-	return render(request, 'results.html', {"avg_transaction":av_transaction_prices,"avg_seller":av_seller_prices,"avg_buyer":av_buyer_prices})
+
+	return render(request, 'results.html',
+			{"avg_transaction":round(av_transaction_prices,3),
+			"avg_seller":round(av_seller_prices,3),
+			"avg_buyer":round(av_buyer_prices,3),
+			"final_trans":round(final_tprice,3),
+			"final_buyer": round(final_bprice,3),
+			"final_seller": round(final_sprice,3)})

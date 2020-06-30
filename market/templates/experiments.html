@@ -1,25 +1,28 @@
 {% extends 'base.html' %}
 
 {% block body-left %}
+<div class = "content_box">
 <h1>Experiments</h1>
 <p>
     Using the simulation, several situations will be studied and compared below.
     In all experiments, a minimum price of 1 euros and a maximum price of 20 euros is used.<br>
-
-    <h1> Negotiation </h1>
-
+</p>
+</div>
+<div class = "content_box">
+  <h1> Negotiation </h1>
+  <p>
     When negotiating, buyers use knowledge they have gathered by exchanging knowledge with each
     other, next to their own knowledge and beliefs to negotiate with each other and to get a price
     that maximizes the surplus, which is the advantage for both the seller as well as the buyer.
     A deal is made whenever there is an overlap in the prices the seller considers possible and
     the prices the buyer considers possible. Furthermore, as buyers interact with each other, it might
-    be possible that a buyer knows about the last transaction the seller currently traded with, and what
+    be possible that a buyer knows about the last transaction, a seller currently traded with, and what
     the price of that transaction was. When the buyer knows the seller sold a product for 4 euros previously,
-    it will not accept a price of 5 euros for a deal. In all simulations, 3000 days were simulated.
+    it will not accept a price of 5 euros for a deal. Simulations were run for 3000 days.
     Furthermore, in all plots in this section, 10 pairs of buyers exchange knowledge every day, and
     sellers do not share information.<br>
     The figure below shows the convergence of the market price when the number of buyers equals the
-    number of sellers. In this simulation there are 100 sellers and 100 buyers.
+    number of sellers. In this simulation, there are 100 sellers and 100 buyers.
 </p>
 <img src="../static/plots/neg_100_100.png" class="rounded mx-auto d-block" width="50%">
 <p>
@@ -28,7 +31,7 @@
     approximately 1000 days, and after this there is almost no change in price anymore. Second, the
     price convergences in favor of the buyers, which makes sense, as the buyers share valuable information
     with each other, concerning where prices are cheap (which sellers sell for a lower price) and what
-    the price there actually is. The price stabilizes around 3 euros. The stabilization is also confirmed
+    is the cost there. The average transaction price stabilizes around 3 euros. The stabilization is also confirmed
     by the decreasing standard deviation of the transaction price (light green).<br><br>
 
     When increasing the number of buyers in the simulation to 110 buyers, the demand raises, while
@@ -43,13 +46,13 @@
     before this was approximately 3 euros. The stabilization is again confirmed by the standard deviation
     decreasing and staying constant around 5 euros.<br><br>
 
-    Now the number of buyers will be increased even further to 150 buyers. The figure below shows the
+    Next, the number of buyers were increased further to 150 buyers. The figure below shows the
     convergence of the price for this particular situation.
 </p>
 <img src="../static/plots/neg_150_100.png" class="rounded mx-auto d-block" width="50%">
 <p>
     <br>
-    Here it can be seen that the sellers actually dominate the market. The price stabilizes much closer to
+    It is observed that the sellers actually dominate the market. The price stabilizes much closer to
     the maximum possible price (which is 20 euros). Furthermore this price is reached much faster
     compared to the previous simulations. The price stabilizes around 15 euros.<br><br>
 
@@ -67,12 +70,14 @@
 </div>
 <p>
     <br>
-    As can be seen in those extreme scenarios of an unbalanced market, in the case of too much buyers
+    As can be seen in those extreme scenarios of an unbalanced market, in the case of too many buyers
     compared to the sellers (left) the price almost instantly converges to the maximum price. In the case of
     too few buyers compared to sellers (right), the average price of the sellers almost instantly drops to the
     minimum possible price.
 </p>
+</div>
 
+<div class = "content_box">
 <p>
     <h1> Grocery Store </h1>
     In the following experiments, a grocery store situation is assumed. In this situation, when buyers
@@ -88,20 +93,19 @@
 <p>
     <br>
     It can be observed that the price decreases and converges around 2 euros. Furthermore it can
-    be seen that the overal convergence is decreasing inverse exponentially over the duration of the
+    be seen that the overal convergence is decreases inverse exponentially over the duration of the
     simulation, in contrast with the negotiation situation where some sort of stages can be observed
     before a stable price is reached.<br><br>
 
     When increasing the number of buyers, the same behaviour can be observed as above, except the
-    price stabilizes at a higher price, namely at 4 euros. Furthermore it can be seen in the figure below
+    price stabilizes at a higher value, namely at 4 euros. Furthermore it can be seen in the figure below
     that the price stabilizes slower.
 </p>
 <img src="../static/plots/gro_120_100.png" class="rounded mx-auto d-block" width="50%">
 <p>
     <br>
-    Lastly we show again two extreme situations. One in which the number of buyers is twice the number
-    of sellers (200 buyers and 100 sellers) and one in which the number of buyers is very low compared
-    to the number of sellers (40 buyers and 100 sellers).
+    Lastly we show again two extreme situations. One in which the number of buyers are twice the number
+    of sellers (200 buyers and 100 sellers) and one in which the number of buyers are much lesser than the number of sellers (40 buyers and 100 sellers).
 </p>
 <div class="row">
     <div class="column">
@@ -112,14 +116,16 @@
     </div>
 </div>
 <p>
-    As expected, in the case where there are way more buyers than sellers (left), the price very quickly
-    reaches the maximum price. In the case when there are way more sellers than buyers (right), the
+    As expected, in the case where there are many more buyers than sellers (left), the price very quickly
+    reaches the maximum price. In the case where there are many more sellers than buyers (right), the
     price quickly converges to the minimum price.
 </p>
+</div>
 
+<div class = "content_box">
 <p>
     <h1> Sharing Knowledge </h1>
-    Up until now, buyers shared knowledge for a fixed number of times after every day. Now we will inspect
+    In above simualtions, buyers shared knowledge for a fixed number of times after every day. Now we will inspect
     market behaviour when the number of interactions between buyers at the end of every day is varied.
     In the figures below, we will show 4 different situations. First the original situation is
     showed (again) in which 10 pairs of the buyers exchange knowledge about sellers who sell
@@ -153,7 +159,7 @@
 <p>
     <br>
     Finally, when decreasing the number of interactions to 0, another interesting behaviour arises.
-    In this situation, buyers do not have an advantage over sellers because now knowledge is exchanged. As
+    In this situation, buyers do not have an advantage over sellers because no knowledge is exchanged. As
     can be seen in the figure below, this yields an equilibrium price approximately in the middle of the
     possible prices. Here, no type of agent has an advantage over the other, hence the price is 'optimal'
     for both sellers and buyers in the sense that the price is (approximately) in the middle of both optimums
@@ -161,37 +167,8 @@
     The figure below shows this logical behaviour.
 </p>
 <img src="../static/plots/neg_100_100_no_share.png" class="rounded mx-auto d-block" width="50%">
+</div>
 
-<p>
-    <h1> Conclusion </h1>
-    When using the simulation to inspect the behaviour of transaction prices with different numbers of
-    buyers and sellers, it can be concluded that our simulation shows realistic results. It follows
-    the natural laws of supply and demand, where an inbalance in the two leads to higher or lower prices.
-    In the case where there are too many buyers compared to the number of sellers, both market situations showed
-    that the price started to raise and stabilize at a higher value. In extreme situations, both
-    the negotiation and the grocery store situation very quickly converged to the maximum price.<br>
-    This can be explained by the fact that there is more demand of the product compared to the supply.
-    Therefore, the sellers have 'the upper hand', about the price. Buyers want the product, and because
-    there is not enough of the product for all, they must be willing to pay more than other buyers, hence
-    the price is raising.<br>
-    Vice versa both simulations showed that the price reaches its minimum when there are too much sellers
-    on the market. There are more products than there are buyers, hence the only way as a seller to sell
-    your product is to sell it for less than the other sellers, hence the price decreases.<br>
-    When there is not an extreme inbalance between supply and demand, it can be observed that several
-    equilibriums are reached, respecting the supply and demand behaviour (relatively more buyers lead
-    to an increase of the final price).<br>
-    Furthermore, the simulation shows a logical behaviour with respect to the sharing of knowledge and
-    higher order reasoning. This can be seen when the number of buyers is slightly higher or equal to
-    the number of sellers. Because the buyers share knowledge about the price and who sold which price,
-    the buyers have an advantage over the sellers, forcing the sellers to compete harder with each other.
-    Buyers have a much better idea about the complete market than the sellers do, due to the sharing of
-    knowledge with each other. This explains why the price is in favor of the buyers when the number of
-    buyers is close to the number of sellers. It is shown that when the number of interactions to exchange knowledge
-    increases, the price converges and reaches its equilibrium faster. When sellers exchange knowledge
-    instead of buyers, an inverse behaviour is observed, in which the price converges in favor of the sellers.
-    When no knowledge is exchanged, an equilibrium price which is optimal for both buyers and sellers
-    is reached.
-</p>
 {% endblock %}
 
 
