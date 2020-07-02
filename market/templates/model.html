@@ -46,30 +46,57 @@
 </p>
 </div>
 
-<div class = "content_box">
-<h2>Logic Environment</h2>
-<p>
-    The interaction between the pair formed by Buyer-Seller will be based on the possible worlds considered by both of them in adition to the beliefs the buyer has about the seller's prices.
-    The Buyer will accept as its maximum price, the minimum of either the maximum price of its possible worlds or the belief of the price the vendor is making deals with.
-    This could lead to different scenarios of agreement or no deal.
-    All the agents always say the truth, so real information is going to be communicated and knowledge is going to be gained after each transaction or gossip.
-    The way to determine if two Agents are able to arrange a price is checking if there is any possible world accessible by both of them.
-    In the figure below, we have an example of two agents that don't have any world in common, so no deal could be reached.
-</p>
-<img src="../static/plots/not_deal.png" class="rounded mx-auto d-block" width="800">
+<div class="content_box">
+    <h2>Logic Environment</h2>
+    <p>
+        Each Agent in the model has their on set of possible worlds based on the atoms of the price of the product. In the following figure, can be observed the structure of this worlds.
 
-<p>
-    However, in the next figure (below), the world where the price is equal to 3 is considered possible by both of them, so they could make a deal in this scenario.
-</p>
-<img src="../static/plots/deal.png" class="rounded mx-auto d-block" width="800">
+    </p>
 
-<p>
-    Another important consideration of Logic in the project is the way each agent update the possible worlds.
-    Based on the information received  by other Agents, the agent can modify the boundary of the prices.
-    In the example shown below, the Buyer consider possible any price from 1 to 4.
-    However, after gossiping, the world of 4 is no longer an option, being reduced to the prices from 1 to 3.
-</p>
-<img src="../static/plots/using_knowledge.png" class="rounded mx-auto d-block" width="800">
+    <img src="../static/plots/Atoms.png" class="rounded mx-auto d-block" width="500">
+
+    <p>
+
+        The interaction between the pair formed by Buyer-Seller will be based on the possible worlds considered by both of them in adition to the beliefs the buyer has about the seller's prices.
+        The Buyer will accept as its maximum price, the minimum of either the maximum price of its possible worlds or the belief of the price the vendor is making deals with.
+        This could lead to different scenarios of agreement or no deal.
+
+    </p>
+
+    <img src="../static/plots/real-world.png" class="rounded mx-auto d-block" width="500">
+
+    <p>
+
+        All the agents always say the truth, so real information is going to be communicated and knowledge is going to be gained after each transaction or gossip.
+        The way to determine if two Agents are able to arrange a price is checking if there is any possible world accessible by both of them.
+        In the figure below, we have an example of two agents that don't have any world in common, so no deal could be reached.
+    </p>
+    <img src="../static/plots/not_deal.png" class="rounded mx-auto d-block" width="800">
+
+    <p>
+        However, in the next figure (below), the world where the price is equal to 3 is considered possible by both of them, so they could make a deal in this scenario.
+    </p>
+    <img src="../static/plots/deal.png" class="rounded mx-auto d-block" width="800">
+
+    <p>
+        Another important consideration of Logic in the project is the way each agent update the possible worlds.
+        Based on the information received  by other Agents, the agent can modify the boundary of the prices.
+        In the example shown below, the Buyer consider possible any price from 1 to 4.
+        However, after gossiping, the world of 4 is no longer an option, being reduced to the prices from 1 to 3.
+    </p>
+    <img src="../static/plots/using_knowledge.png" class="rounded mx-auto d-block" width="800">
+
+    <p>
+
+        They agents are able to take advantage of the knowledge they have about the other agents. So depending on the kind of agent (buyer or seller), they will determine their
+        offer's boundary based on the price that is more profitable for them, the current boundary (what they consider fair) or what the other agent considers fair. It can be 
+        interpretated as the way the agents are using that information to create the negotiation prices.
+
+    </p>
+
+    <img src="../static/plots/negotiation_boundaries.png" class="rounded mx-auto d-block" width="500">
+
+    <p>
 </div>
 {% endblock %}
 
